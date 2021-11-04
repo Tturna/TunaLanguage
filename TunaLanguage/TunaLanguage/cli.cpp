@@ -12,9 +12,7 @@ int main() {
 		string input = cInput;
 
 		lexer.Initialize(input);
-
 		vector<Token> tokens = lexer.MakeTokens();
-		//vector<string> tokenStrings = lexer.GetTokenStrings(tokens);
 
 		for (Token t : tokens)
 			cout << t.type << ':' << t.value << ' ';
