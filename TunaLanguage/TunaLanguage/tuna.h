@@ -29,17 +29,12 @@ const string TT_FLOAT = "FLOAT";
 const string DIGITS = "0123456789";
 const char NAC = '§';
 
-class IToken {
+class Token {
 public:
 	string type;
-};
+	string value;
 
-template<typename T = int>
-class Token : public IToken {
-public:
-	T value;
-
-	Token(string type_, T value_) {
+	Token(string type_, string value_) {
 		type = type_;
 		value = value_;
 	}
@@ -84,8 +79,8 @@ public:
 	/// Creates and returns a list of Tokens made from the source code this class was defined with.
 	/// </summary>
 	/// <returns>std::vector<IToken*></returns>
-	vector<IToken*> MakeTokens() {
-		vector<IToken*> tokens;
+	vector<Token> MakeTokens() {
+		vector<Token> tokens;
 		string tabAndSpace = " \t";
 
 		while (currentChar != NAC) {
@@ -97,7 +92,7 @@ public:
 			}
 			else {
 				try {
-					tokens.push_back(new Token<>(typeMap.at(string(1, currentChar))));
+					tokens.push_back(Token(typeMap.at(string(1, currentChar))));
 				}
 				catch (...){
 					cout << "Lexing error: Illegal character.";
@@ -111,7 +106,7 @@ public:
 		return tokens;
 	}
 
-	IToken* MakeNumber() {
+	Token MakeNumber() {
 		string numStr = "";
 		bool hasDecimal = false;
 
@@ -123,14 +118,14 @@ public:
 		}
 
 		if (hasDecimal) {
-			return new Token<float>(TT_FLOAT, stof(numStr));
+			return Token(TT_FLOAT, numStr);
 		}
 		else {
-			return new Token<int>(TT_INT, stoi(numStr));
+			return Token(TT_INT, numStr);
 		}
 	}
 
-	vector<string> GetTokenStrings(vector<IToken*> tokens) {
+	/*vector<string> GetTokenStrings(vector<IToken*> tokens) {
 		vector<string> strings;
 		for (size_t i = 0; i < tokens.size(); i++)
 		{
@@ -143,5 +138,5 @@ public:
 		}
 
 		return strings;
-	}
+	}*/
 };

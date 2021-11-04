@@ -13,13 +13,11 @@ int main() {
 
 		lexer.Initialize(input);
 
-		vector<IToken*> tokens = lexer.MakeTokens();
-		vector<string> tokenStrings = lexer.GetTokenStrings(tokens);
+		vector<Token> tokens = lexer.MakeTokens();
+		//vector<string> tokenStrings = lexer.GetTokenStrings(tokens);
 
-		int a = ((Token<int>*)tokens[0])->value;
-
-		for (string s : tokenStrings)
-			cout << s << ' ';
+		for (Token t : tokens)
+			cout << t.type << ':' << t.value << ' ';
 
 		cout << endl;
 	}
