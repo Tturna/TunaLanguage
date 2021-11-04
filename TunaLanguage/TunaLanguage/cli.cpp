@@ -6,9 +6,10 @@ int main() {
 	Lexer lexer = Lexer();
 
 	while (true) {
-		string input = "";
+		char cInput[256];
 		cout << "Tuna> ";
-		cin >> input;
+		cin.getline(cInput, 256);
+		string input = cInput;
 
 		lexer.Initialize(input);
 
